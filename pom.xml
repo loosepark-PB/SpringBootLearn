@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?> <!-- XML 声明，指定版本和编码 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" <!-- 项目根元素，定义Maven命名空间 -->
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" <!-- 定义XML Schema实例命名空间 -->
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <!-- 指定Schema位置 -->
+    <modelVersion>4.0.0</modelVersion> <!-- POM模型版本，Maven 3需要为4.0.0 -->
+
+    <groupId>com.example</groupId> <!-- 项目的组ID，通常使用公司或组织的反向域名 -->
+    <artifactId>order-management-system</artifactId> <!-- 项目的构件ID，通常是项目名称 -->
+    <version>1.0-SNAPSHOT</version> <!-- 项目版本号，SNAPSHOT表示开发版本 -->
+    <packaging>pom</packaging> <!-- 打包类型，pom表示这是一个父项目 -->
+
+    <modules> <!-- 子模块列表，用于多模块项目 -->
+        <module>order-service</module> <!-- 子模块：订单服务 -->
+        <module>order-cancel-service</module> <!-- 子模块：订单取消服务 -->
+    </modules>
+
+    <parent> <!-- 父项目配置，这里指定Spring Boot作为父项目 -->
+        <groupId>org.springframework.boot</groupId> <!-- Spring Boot的组ID -->
+        <artifactId>spring-boot-starter-parent</artifactId> <!-- Spring Boot父项目的构件ID -->
+        <version>2.7.0</version> <!-- Spring Boot版本 -->
+    </parent>
+
+    <properties> <!-- 项目属性配置，用于定义变量 -->
+        <java.version>18</java.version> <!-- Java版本 -->
+        <spring-cloud.version>2021.0.3</spring-cloud.version> <!-- Spring Cloud版本 -->
+    </properties>
+
+    <dependencies> <!-- 项目依赖列表，所有子模块都会继承这些依赖 -->
+        <dependency> <!-- Spring Boot Web依赖，用于Web应用开发 -->
+            <groupId>org.springframework.boot</groupId> <!-- 依赖的组ID -->
+            <artifactId>spring-boot-starter-web</artifactId> <!-- 依赖的构件ID -->
+        </dependency>
+        <dependency> <!-- Spring Boot JPA依赖，用于数据库访问 -->
+            <groupId>org.springframework.boot</groupId> <!-- 依赖的组ID -->
+            <artifactId>spring-boot-starter-data-jpa</artifactId> <!-- 依赖的构件ID -->
+        </dependency>
+        <dependency> <!-- Spring Boot Thymeleaf依赖，用于模板引擎 -->
+            <groupId>org.springframework.boot</groupId> <!-- 依赖的组ID -->
+            <artifactId>spring-boot-starter-thymeleaf</artifactId> <!-- 依赖的构件ID -->
+        </dependency>
+        <dependency> <!-- H2数据库依赖，用于内存数据库 -->
+            <groupId>com.h2database</groupId> <!-- 依赖的组ID -->
+            <artifactId>h2</artifactId> <!-- 依赖的构件ID -->
+            <scope>runtime</scope> <!-- 依赖范围，runtime表示运行时需要，编译时不需要 -->
+        </dependency>
+        <dependency> <!-- Lombok依赖，用于减少样板代码 -->
+            <groupId>org.projectlombok</groupId> <!-- 依赖的组ID -->
+            <artifactId>lombok</artifactId> <!-- 依赖的构件ID -->
+            <optional>true</optional> <!-- 可选依赖，不会传递给子模块 -->
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement> <!-- 依赖管理，用于管理版本 -->
+        <dependencies> <!-- 依赖列表 -->
+            <dependency> <!-- Spring Cloud依赖，通过BOM导入 -->
+                <groupId>org.springframework.cloud</groupId> <!-- 依赖的组ID -->
+                <artifactId>spring-cloud-dependencies</artifactId> <!-- 依赖的构件ID -->
+                <version>${spring-cloud.version}</version> <!-- 版本号，使用属性变量 -->
+                <type>pom</type> <!-- 依赖类型，pom表示导入依赖声明 -->
+                <scope>import</scope> <!-- 依赖范围，import表示导入依赖管理 -->
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build> <!-- 构建配置 -->
+        <plugins> <!-- 插件列表 -->
+            <plugin> <!-- Spring Boot Maven插件，用于构建可执行JAR文件 -->
+                <groupId>org.springframework.boot</groupId> <!-- 插件的组ID -->
+                <artifactId>spring-boot-maven-plugin</artifactId> <!-- 插件的构件ID -->
+                <configuration> <!-- 插件配置 -->
+                    <excludes> <!-- 排除列表 -->
+                        <exclude> <!-- 排除Lombok，减小最终JAR包大小 -->
+                            <groupId>org.projectlombok</groupId> <!-- 排除的组ID -->
+                            <artifactId>lombok</artifactId> <!-- 排除的构件ID -->
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project> <!-- 项目配置结束标签 -->

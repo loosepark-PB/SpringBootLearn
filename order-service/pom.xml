@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?> <!-- XML 声明，指定版本和编码 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" <!-- 项目根元素，定义Maven命名空间 -->
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" <!-- 定义XML Schema实例命名空间 -->
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <!-- 指定Schema位置 -->
+    <parent> <!-- 父项目配置，指定当前模块的父项目 -->
+        <artifactId>order-management-system</artifactId> <!-- 父项目的构件ID -->
+        <groupId>com.example</groupId> <!-- 父项目的组ID -->
+        <version>1.0-SNAPSHOT</version> <!-- 父项目的版本号 -->
+    </parent>
+    <modelVersion>4.0.0</modelVersion> <!-- POM模型版本，Maven 3需要为4.0.0 -->
+
+    <artifactId>order-service</artifactId> <!-- 当前项目/模块的构件ID -->
+
+    <dependencies> <!-- 项目依赖列表 -->
+        <dependency> <!-- 单个依赖配置 -->
+            <groupId>org.springframework.cloud</groupId> <!-- 依赖的组ID -->
+            <artifactId>spring-cloud-starter-openfeign</artifactId> <!-- 依赖的构件ID -->
+        </dependency>
+    </dependencies>
+</project> <!-- 项目配置结束标签 -->
