@@ -1,10 +1,16 @@
 package com.example.orderservice.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -18,8 +24,11 @@ public class Order {
     private Integer quantity;
     private Double totalAmount;
     private String status; // PENDING, COMPLETED, CANCELLED
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
+
+    @Builder.Default
+    private LocalDateTime createTime = LocalDateTime.now();
+    @Builder.Default
+    private LocalDateTime updateTime = LocalDateTime.now();
 
     @PrePersist
     protected void onCreate() {
